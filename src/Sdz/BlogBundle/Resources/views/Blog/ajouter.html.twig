@@ -1,0 +1,26 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/modifier.html.twig #}
+ 
+{% extends "SdzBlogBundle::layout.html.twig" %}
+ 
+{% block title %}
+  Créer un article - {{ parent() }}
+{% endblock %}
+ 
+{% block sdzblog_body %}
+ 
+  <h2>Créer un article</h2>
+ 
+  {% include "SdzBlogBundle:Blog:formulaire.html.twig" %}
+ 
+  <p>
+    Vous créer un nouvel article. J'espère que vous ne manquez pas d'inspiration !
+  </p>
+ 
+  <p>
+    <a href="{{ path('sdzblog_accueil') }}" class="btn">
+      <i class="icon-chevron-left"></i>
+      Retour à la liste
+    </a>
+  </p>
+ 
+{% endblock %}
