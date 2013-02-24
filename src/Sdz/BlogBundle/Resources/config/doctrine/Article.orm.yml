@@ -1,0 +1,23 @@
+Sdz\BlogBundle\Entity\Article:
+    type: entity
+    table: article
+    repositoryClass: Sdz\BlogBundle\Entity\ArticleRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        date:
+            type: datetime
+        titre:
+            type: string
+            length: 255
+        auteur:
+            type: string
+            length: 255
+        contenu:
+            type: text
+        publication:
+            type: boolean
+    lifecycleCallbacks: {  }

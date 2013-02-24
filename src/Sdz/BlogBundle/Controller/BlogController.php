@@ -6,6 +6,7 @@ namespace Sdz\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Sdz\BlogBundle\Entity\Article;
 
 class BlogController extends Controller
 {
@@ -52,16 +53,22 @@ class BlogController extends Controller
    
   public function voirAction($id)
   {
-    // Ici, on récupérera l'article correspondant à l'id $id
-    $article = array(
-      'id'      => 1,
-      'titre'   => 'Mon weekend a Phi Phi Island !',
-      'auteur'  => 'winzou',
-      'contenu' => 'Ce weekend était trop bien. Blabla…',
-      'date'    => new \Datetime()
-    );
-     
-    // Puis modifiez la ligne du render comme ceci, pour prendre en compte l'article :
+    // On récupère le repository
+    $repository = $this->getDoctrine()
+                       ->getManager()
+                       ->getRepository('SdzBlogBundle:Article');
+   
+    // On récupère l'entité correspondant à l'id $id
+    $article = $repository->find($id);
+   
+    // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+   
+    // Ou null si aucun article n'a été trouvé avec l'id $id
+    if($article === null)
+    {
+      throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+    }
+       
     return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
       'article' => $article
     ));
@@ -69,8 +76,22 @@ class BlogController extends Controller
    
   public function ajouterAction()
   {
+    // On crée l'entité
+    $article = new Article();
+    $article->setTitre('Mon premier article');
+    $article->setAuteur('Julien');
+    $article->setContenu("J'ai Célestin dans les bras et ce n'est pas facile d'écrire un grand article.");
+    
+    // On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+
+    // Étape 1 : on persiste l'entité
+    $em->persist($article);
+
+    // Étape 2 : on flush ce qui a été persisté avant
+    $em->flush();
+
     // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
-     
     if( $this->get('request')->getMethod() == 'POST' )
     {
       // Ici, on s'occupera de la création et de la gestion du formulaire
@@ -78,7 +99,7 @@ class BlogController extends Controller
       $this->get('session')->getFlashBag()->add('notice', 'Article bien enregistré');
      
       // Puis on redirige vers la page de visualisation de cet article
-      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => 5)) );
+      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())) );
     }
  
     // Si on n'est pas en POST, alors on affiche le formulaire
