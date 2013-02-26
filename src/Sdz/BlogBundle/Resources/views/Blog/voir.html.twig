@@ -8,7 +8,13 @@
  
 {% block sdzblog_body %}
  
-  <h2>{{ article.titre }}</h2>
+  <h2>
+  {# On vérifie qu'une image soit associée à l'article : #}
+  {% if article.image is not null %}
+  <img src="{{ article.image.url }}" alt="{{ article.image.alt }}">
+  {% endif %}
+  {{ article.titre }}
+  </h2>
   <i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
  
   <div class="well">

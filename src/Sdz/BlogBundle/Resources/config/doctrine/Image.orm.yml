@@ -1,0 +1,17 @@
+Sdz\BlogBundle\Entity\Image:
+    type: entity
+    table: image
+    repositoryClass: Sdz\BlogBundle\Entity\ImageRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        url:
+            type: string
+            length: 255
+        alt:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

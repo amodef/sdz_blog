@@ -39,6 +39,11 @@ class Article
    */
   private $publication;
 
+  /**
+   * @var \Sdz\BlogBundle\Entity\Image
+   */
+  private $image;
+
   public function __construct()
   {
     $this->date = new \Datetime();
@@ -147,26 +152,49 @@ class Article
     return $this->contenu;
   }
 
-    /**
-     * Set publication
-     *
-     * @param boolean $publication
-     * @return Article
-     */
-    public function setPublication($publication)
-    {
-        $this->publication = $publication;
-    
-        return $this;
-    }
+  /**
+   * Set publication
+   *
+   * @param boolean $publication
+   * @return Article
+   */
+  public function setPublication($publication)
+  {
+      $this->publication = $publication;
+  
+      return $this;
+  }
 
-    /**
-     * Get publication
-     *
-     * @return boolean 
-     */
-    public function getPublication()
-    {
-        return $this->publication;
-    }
+  /**
+   * Get publication
+   *
+   * @return boolean 
+   */
+  public function getPublication()
+  {
+      return $this->publication;
+  }
+
+  /**
+   * Set image
+   *
+   * @param \Sdz\BlogBundle\Entity\Image $image
+   * @return Article
+   */
+  public function setImage(\Sdz\BlogBundle\Entity\Image $image = null)
+  {
+      $this->image = $image;
+  
+      return $this;
+  }
+
+  /**
+   * Get image
+   *
+   * @return \Sdz\BlogBundle\Entity\Image 
+   */
+  public function getImage()
+  {
+      return $this->image;
+  }
 }

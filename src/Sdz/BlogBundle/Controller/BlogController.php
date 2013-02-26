@@ -7,6 +7,7 @@ namespace Sdz\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sdz\BlogBundle\Entity\Article;
+use Sdz\BlogBundle\Entity\Image;
 
 class BlogController extends Controller
 {
@@ -76,12 +77,20 @@ class BlogController extends Controller
    
   public function ajouterAction()
   {
-    // On crée l'entité
+    // On crée l'entité Article
     $article = new Article();
     $article->setTitre('Mon premier article');
     $article->setAuteur('Julien');
     $article->setContenu("J'ai Célestin dans les bras et ce n'est pas facile d'écrire un grand article.");
     
+    // Création de l'entité Image
+    $image = new Image();
+    $image->setUrl("http://uploads.siteduzero.com/icones/478001_479000/478657.png");
+    $image->setAlt("Texte alternatif de l'image.");
+
+    // On lie l'entité Image à l'entité Article
+    $article->setImage($image);
+
     // On récupère l'EntityManager
     $em = $this->getDoctrine()->getManager();
 

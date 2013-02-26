@@ -20,4 +20,10 @@ Sdz\BlogBundle\Entity\Article:
             type: text
         publication:
             type: boolean
+    oneToOne:
+        image:
+            targetEntity: Image
+            cascade: [persist]
+            joinColumn:
+                nullable: false
     lifecycleCallbacks: {  }
